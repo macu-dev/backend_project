@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// para que funcione el servidor ./artisan serve
 Route::get('/', function () {
     return view('home.home');
 });
+
+//lleva tdoo el protocolo de http
+Route::resource('post', 'PostController');

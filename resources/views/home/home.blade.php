@@ -1,10 +1,16 @@
 @extends('base')
 @section('title') Inicio @endsection
 @section('content')
-    <main class="container-fluid">
-        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-            <h1 class="display-4">ABM de Tareas</h1>
-            <p class="lead">Ejercicio práctico de un ABM completo de un modelo de tarea y categoría.</p>
-        </div>
-    </main>
+
+    <div class="d-flex justify-content-center flex-wrap h-100 container-home">
+        <h1 class="display-4 fw-bold mt-5">Sistema Bibliotecario</h1>
+        <p class="lead w-100 mb-5 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+        <article class="card" style="width: 18rem;">
+            <img src="{{ asset('assets/img/book-cover.jpg') }}" class="card-img-top" alt="libro">
+            <div class="card-body d-flex justify-content-center">
+              <a href="#" class="btn btn-primary">Registro de libros</a>
+            </div>
+        </article>
+    </div>
 @endsection
