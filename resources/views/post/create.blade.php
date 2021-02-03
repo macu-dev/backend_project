@@ -27,8 +27,9 @@
 
         <div class="form-group mb-3">
             <label for="image">Portada</label>
-            <input type="file" class="form-control" id="image" placeholder="Portada del libro" accept="image/x-png,image/gif,image/jpeg" />
-            <img id="preview-img" src="" alt="vista previa de la imagen"/>
+            <input type="text" class="form-control" id="image" placeholder="Portada del libro" name="image">
+            {{-- <input type="file" class="form-control" id="image" placeholder="Portada del libro" accept="image/x-png,image/gif,image/jpeg" />
+            <img id="preview-img" src="" alt="vista previa de la imagen"/> --}}
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>

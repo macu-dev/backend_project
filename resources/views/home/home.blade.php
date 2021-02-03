@@ -9,7 +9,7 @@
         <article class="card" style="width: 18rem;">
             <img src="{{ asset('assets/img/book-cover.jpg') }}" class="card-img-top" alt="libro">
             <div class="card-body d-flex justify-content-center">
-              <a href="#" class="btn btn-primary">Registro de libros</a>
+              <a href="{{ url('post') }}" class="btn btn-primary">Registro de libros</a>
             </div>
         </article>
     </div>

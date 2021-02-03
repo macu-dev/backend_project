@@ -13,7 +13,7 @@
         {{-- @include('components.header') --}}
         <header class="bg-success">
             <nav class="navbar navbar-light container">
-                <a class="navbar-brand navbar-brand mb-0 h1 text-white fw-bold" href="#">SISBI</a>
+                <a class="navbar-brand navbar-brand mb-0 h1 text-white fw-bold" href="{{ url('home') }}">SISBI</a>
             </nav>
         </header>
         <main class="main">
