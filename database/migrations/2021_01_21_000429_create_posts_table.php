@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('title');
             $table->text('summary');
             $table->text('image');
-            $table->text('description');
+            $table->text('year');
             $table->text('author');
             $table->timestamps();
         });
@@ -30,8 +30,7 @@ class CreatePostsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('posts');
     }
 }
