@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 // para que funcione el servidor ./artisan serve
 Route::get('/', function () {
     return view('home.home');
+})->name('home'); //le ponemos un nombre a la barra
+
+Route::get('post', function () {
+    return view('post.index');
 });
+
 
 //lleva tdoo el protocolo de http
 Route::resource('post', 'PostController');
