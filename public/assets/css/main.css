@@ -13,3 +13,16 @@ body{
 .container-home {
     align-content: baseline;
 }
+
+
+.main{
+    height: calc(100% - 3.1rem);
+}
+
+.table>tbody {
+    vertical-align: middle !important;
+}
+
+.tabla-encabezado{
+    background-color: #6c757d24;
+}
