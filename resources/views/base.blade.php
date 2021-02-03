@@ -16,7 +16,7 @@
                 <a class="navbar-brand navbar-brand mb-0 h1 text-white fw-bold" href="#">SISBI</a>
             </nav>
         </header>
-        <main class="h-100">
+        <main class="main">
             <section class="section-primary h-100">
                 <div class="container h-100">
                     {{-- @include('components.alert') --}}
