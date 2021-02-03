@@ -8,21 +8,21 @@
         {{csrf_field()}}
         <div class="form-group mb-2">
             <label for="title">Título</label>
-            <input type="text" class="form-control" id="title" placeholder="Título del libro">
+            <input type="text" class="form-control" id="title" placeholder="Título del libro" name="title">
         </div>
         <div class="form-group mb-2">
           <label for="author">Autor</label>
-          <input type="text" class="form-control" id="author" placeholder="Nombre del autor">
+          <input type="text" class="form-control" id="author" placeholder="Nombre del autor" name="author">
         </div>
 
         <div class="form-group mb-3">
             <label for="year">Año</label>
-            <input type="text" class="form-control" id="year" placeholder="Año de Publicación">
+            <input type="text" class="form-control" id="year" placeholder="Año de Publicación" name="year">
         </div>
 
         <div class="form-group mb-2">
             <label for="summary">Resumen</label>
-            <textarea class="form-control" placeholder="Resumen del libro" id="summary" cols="30" rows="10"></textarea>
+            <textarea class="form-control" placeholder="Resumen del libro" id="summary" cols="30" rows="10" name="summary"></textarea>
         </div>
 
         <div class="form-group mb-3">
