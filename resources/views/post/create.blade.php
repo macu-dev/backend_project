@@ -1,7 +1,7 @@
 @extends('base')
-@section('title') Create @endsection
+@section('title') Registro de libros @endsection
 @section('content')
-    <h1 class="text-center fw-bold mt-3">Registrar Libro</h1>
+    <h1 class="text-center fw-bold mt-3">Registro de libros</h1>
     {{-- la informacion sera enviada a  post store --}}
     <form action="{{route('post.store')}}" method="post">
         {{-- es una llave de seguridad cuando recibe la informacion post store, le permite el acceso si no  no podemos guardar la informacion --}}
