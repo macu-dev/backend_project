@@ -34,9 +34,16 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        // $data = $request ->all(); //tiemne la informacion que se envia al formulario
+        //para excluir el token que trae data, si no lo excluimos sale error ya que no es un campo de nuestr BD, lo inserta a la base de datos
+        $data = $request -> except('_token');
+        // var_dump($data); //me da la informacion de la variable
+        Post::insert($data); //insertamos la info que viene de data
+        // die(); //hace que se detenga el codgo
+
+        return redirect() ->route("post.index"); //te redirecciona al index
+
     }
 
     /**
@@ -56,8 +63,10 @@ class PostController extends Controller
      * @param  \App\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(post $post){
-        return view("post.edit");
+    public function edit($id){
+        //va a la base de datos segun el id
+        $data = Post::findOrFail($id);
+        return view("post.edit")->with(["post"=> $data]);
     }
 
     /**
@@ -67,9 +76,11 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, post $post)
-    {
-        //
+    public function update(Request $request, $id){
+        $data = $request -> except('_token', '_method');
+        //where primero consulta la data a la base de datos y actuliza, busca por id (en este caso) que sea igual al id que estamos pasandole
+        Post::where('id', '=', $id)->update($data);
+        return redirect() ->route("post.index");
     }
 
     /**
@@ -78,8 +89,8 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
-    {
-        //
+    public function destroy($id){
+        Post::destroy($id);
+        return redirect() ->route("post.index");
     }
 }
