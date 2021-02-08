@@ -1,5 +1,6 @@
 
 @extends('base')
+
 @section('title') Inicio @endsection
 @section('content')
     <table class="table mt-5 w-100">
@@ -14,7 +15,7 @@
                 <th class="text-center">{{"Acciones"}}</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="tabla-contenido">
             @if (count($posts) >=1)
                 @foreach ($posts as $post)
                     <tr>
@@ -22,18 +23,24 @@
                         <td>{{$post->title}}</td>
                         <td>{{$post->author}}</td>
                         <td>{{$post->year}}</td>
-                        <td>{{$post->summary}}</td>
-                        <td>{{$post->image}}</td>
                         <td>
+                            <p class="table-summary m-0">{{$post->summary}}</p>
+                        </td>
+                        <td class="d-flex justify-content-center"><img src="{{asset('storage').'/'.$post->image}}" alt="{{$post->title}}" class="tabla-img"></td>
+                        <td class="acciones">
                             <div class="d-flex justify-content-center mb-2">
-                                <a href="{{route("post.edit", $post->id)}}" class="w-100 d-flex btn btn-warning justify-content-center" role="button">Editar</a>
+                                <a href="{{route("post.edit", $post->id)}}" class="w-100 d-flex btn btn-warning justify-content-center rounded" role="button">Editar</a>
                             </div>
-                            <form action="{{route("post.destroy", $post->id)}}" method="post" class="d-flex justify-content-center">
+                            <form action="{{route("post.destroy", $post->id)}}" method="post" class="d-flex justify-content-center formEliminar mb-2">
                                 {{csrf_field()}}
                                 {{-- LE DECIMOS EL METOOD --}}
                                 {{method_field("DELETE")}}
-                                <button type="submit" class="w-100 btn btn-danger" onclick="return confirm('Desea eliminar este registro?')">Eliminar</button>
+                                <button type="submit" class="w-100 btn btn-danger rounded">Eliminar</button>
                             </form>
+
+                            <div class="d-flex justify-content-center">
+                                <a href="{{route("post.show", $post->id)}}" class="w-100 d-flex btn btn-dark justify-content-center rounded" role="button">Ver detalles</a>
+                            </div>
                         </td>
                     </tr>
 
@@ -47,3 +54,48 @@
     </table>
 
 @endsection
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    @if (session('eliminar') === 'ok')
+        <script>
+             Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        </script>
+
+    @endif
+    <script>
+        const formularioEliminar = document.querySelectorAll('.formEliminar');
+
+        let aprobarEliminacion = (e) => {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    e.target.submit();
+                }
+            })
+        }
+
+
+        if(formularioEliminar.length > 0) {
+            for(let i = 0; i < formularioEliminar.length; i++) {
+                formularioEliminar[i].addEventListener('submit', aprobarEliminacion)
+            }
+        }
+
+    </script>
+@endsection
+
+

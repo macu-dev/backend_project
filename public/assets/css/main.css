@@ -6,7 +6,6 @@ html{
 body{
     width: 100%;
     min-height: 100vh;
-    height: 100%;
 }
 
 
@@ -16,7 +15,7 @@ body{
 
 
 .main{
-    height: calc(100% - 3.1rem);
+    height: calc(100% - 4.1rem);
 }
 
 .table>tbody {
@@ -27,4 +26,31 @@ body{
     background-color: #6c757d24;
 }
 
+.header{
+    background-color: #d63384;
+}
 
+.tabla-img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.contenido{
+    align-content: baseline;
+}
+
+
+.table-summary{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+@media screen and (max-width: 600px) {
+    .table {
+      display: block;
+      overflow-x: auto;
+    }
+}

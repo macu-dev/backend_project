@@ -10,15 +10,22 @@
         <title>@yield('title')</title>
     </head>
     <body>
-        {{-- @include('components.header') --}}
-        <header class="bg-success">
-            <nav class="navbar navbar-light container">
-                <a class="navbar-brand navbar-brand mb-0 h1 text-white fw-bold" href="{{ url('home') }}">SISBI</a>
-            </nav>
-        </header>
+        @if (\Request::is("/") )
+            @include('components.headerHome')
+        @elseif(\Request::is("post/create") )
+            @include('components.headerPage')
+        @elseif(isset($post) and \Request::is("post/$post->id"))
+            @include('components.headerPage')
+        @elseif(isset($post) and \Request::is("post/$post->id/edit"))
+            @include('components.headerPage')
+        @else
+            @include('components.headerPage')
+            @include('components.navbar')
+        @endif
+
         <main class="main">
             <section class="section-primary h-100">
-                <div class="container h-100">
+                <div class="container h-100 d-flex justify-content-center contenido flex-wrap">
                     {{-- @include('components.alert') --}}
                     @yield('content')
                 </div>
@@ -26,4 +33,5 @@
         </main>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </body>
+    @yield('js')
 </html>

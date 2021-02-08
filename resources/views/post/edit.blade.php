@@ -1,9 +1,12 @@
 @extends('base')
+@section('header')
+    @include('components.headerPage')
+@stop
 @section('title') Editar libros @endsection
 @section('content')
-    <h1 class="text-center fw-bold mt-3">Editar libros</h1>
+    <h1 class="text-center fw-bold mt-3 w-100">Editar libros</h1>
     {{-- la informacion sera enviada a  post store --}}
-    <form action="{{route('post.update', $post->id)}}" method="post">
+    <form action="{{route('post.update', $post->id)}}" method="post" enctype="multipart/form-data" class="w-75">
         {{-- es una llave de seguridad cuando recibe la informacion post store, le permite el acceso si no  no podemos guardar la informacion --}}
         {{csrf_field()}}
         {{method_field("PATCH")}}
@@ -28,12 +31,11 @@
 
         <div class="form-group mb-3">
             <label for="image">Portada</label>
-            <input type="text" class="form-control" id="image" placeholder="Portada del libro" name="image" value="{{$post->image}}">
-            {{-- <input type="file" class="form-control" id="image" placeholder="Portada del libro" accept="image/x-png,image/gif,image/jpeg" />
-            <img id="preview-img" src="" alt="vista previa de la imagen"/> --}}
+            <input type="file" class="form-control" id="image" placeholder="Portada del libro" accept="image/x-png,image/gif,image/jpeg"  value="{{$post->image}}" name="image" />
+            {{-- <img id="preview-img" src="" alt="vista previa de la imagen"/>  --}}
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary mb-2">Guardar</button>
       </form>
 @endsection
 
