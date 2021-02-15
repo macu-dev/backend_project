@@ -19,6 +19,16 @@
           <input type="text" class="form-control" id="author" placeholder="Nombre del autor" name="author" value="{{$post->author}}">
         </div>
 
+        <div class="form-group mb-2">
+            <label for="genero_id">Género</label>
+            <select class="form-select" aria-label="Default select example" name="genero_id" id="genero_id" >
+              <option>Seleccione el género</option>
+              @foreach ($generos as $genero)
+              <option value="{{$genero->id}}" {{($post->genero_id == $genero->id)? 'selected':''}}>{{$genero->genero}}</option>
+              @endforeach
+            </select>
+        </div>
+
         <div class="form-group mb-3">
             <label for="year">Año</label>
             <input type="text" class="form-control" id="year" placeholder="Año de Publicación" name="year" value="{{$post->year}}">

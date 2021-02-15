@@ -14,6 +14,14 @@
           <label for="author">Autor</label>
           <input type="text" class="form-control" id="author" placeholder="Nombre del autor" name="author">
         </div>
+        <div class="form-group mb-2">
+          <label for="genero-id">Género</label>
+          <select class="form-select" aria-label="Default select example" name="genero_id" id="genero_id">
+            <option selected>Seleccione el género</option>
+            @foreach ($generos as $genero)
+            <option value="{{$genero->id}}">{{$genero->genero}}</option>
+            @endforeach
+          </select>
 
         <div class="form-group mb-3">
             <label for="year">Año</label>

@@ -3,30 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Genero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PostController extends Controller{
+class PostController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index()
+    {
         //tiene la conexion de post
         //representa la cantidad de registro por pagina
-        $data['posts'] = Post::paginate(5);
+        //$data['posts'] = Post::select()
+        $data['posts'] =  Post::join('generos as g', 'g.id', '=', 'posts.genero_id')
+            ->select('posts.*', 'g.genero')
+            ->paginate(5);
+
         return view("post.index", $data);
     }
 
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $data = $request->input('search');
-        $query = Post::select()
-            ->where('title','like', "%$data%")
-            ->orWhere('author','like', "%$data%")
+        $query = Post::join('generos as g', 'g.id', '=', 'posts.genero_id')
+            ->select('posts.*', 'g.genero')
+            ->where('title', 'like', "%$data%")
+            ->orWhere('author', 'like', "%$data%")
+            ->orWhere('g.genero', 'like', "%$data%")
+            //->paginate(5);
             ->get();
-            //con like me va a atrreae la palabra que coincida
+        //con like me va a atrreae la palabra que coincida
+        //return json_encode($query);
         return view("post.index")->with(["posts" => $query]);
     }
 
@@ -35,8 +47,10 @@ class PostController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
-        return view("post.create");
+    public function create()
+    {
+        $generos = Genero::all();
+        return view("post.create")->with(['generos' => $generos]);
     }
 
     /**
@@ -45,12 +59,13 @@ class PostController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // $data = $request ->all(); //tiemne la informacion que se envia al formulario
         //para excluir el token que trae data, si no lo excluimos sale error ya que no es un campo de nuestr BD, lo inserta a la base de datos
-        $data = $request -> except('_token'); //esto es un arreglo
+        $data = $request->except('_token'); //esto es un arreglo
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $data['image']  = $request->file('image')->store('uploads', 'public');         //accedemos a la image, le deicmos al request que tome la imagen y que guarde una image en la carperta uploadas dentro de public
         } //para verificar la image
 
@@ -59,7 +74,7 @@ class PostController extends Controller{
         Post::insert($data); //insertamos la info que viene de data
         // die(); //hace que se detenga el codgo
 
-        return redirect() ->route("post.index"); //te redirecciona al index
+        return redirect()->route("post.index"); //te redirecciona al index
 
     }
 
@@ -69,7 +84,8 @@ class PostController extends Controller{
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
+    public function show($id)
+    {
         $data = Post::findOrFail($id);
         return view('post.show')->with(['post' => $data]);
     }
@@ -80,10 +96,12 @@ class PostController extends Controller{
      * @param  \App\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id){
+    public function edit($id)
+    {
         //va a la base de datos segun el id
         $data = Post::findOrFail($id);
-        return view("post.edit")->with(["post"=> $data]);
+        $generos = Genero::all();
+        return view("post.edit")->with(["post" => $data, 'generos' => $generos]);
     }
 
     /**
@@ -93,18 +111,19 @@ class PostController extends Controller{
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
-        $data = $request -> except('_token', '_method');
+    public function update(Request $request, $id)
+    {
+        $data = $request->except('_token', '_method');
         //where primero consulta la data a la base de datos y actuliza, busca por id (en este caso) que sea igual al id que estamos pasandole
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $post = Post::findOrFail($id); //busca en el registro de la base de la datos
             Storage::delete("public/$post->image"); //eliminamos la img anterior
             $data['image']  = $request->file('image')->store('uploads', 'public'); //guardamos la nueva image
         }
 
         Post::where('id', '=', $id)->update($data);
-        return redirect() ->route("post.index");
+        return redirect()->route("post.index");
     }
 
     /**
@@ -113,12 +132,10 @@ class PostController extends Controller{
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         Post::destroy($id);
         //mandamos un mensaje de seccion
-        return redirect() ->route("post.index")->with('eliminar', 'ok');
+        return redirect()->route("post.index")->with('eliminar', 'ok');
     }
-
-
-
 }

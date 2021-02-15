@@ -15,7 +15,8 @@ class CreateGenerosTable extends Migration
     {
         Schema::create('generos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('genero');
+            $table->timestamps(); //fecha de actualizacion o fecha de cracion
         });
     }
 

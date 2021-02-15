@@ -31,8 +31,10 @@ body{
 }
 
 .tabla-img {
+    display:block;
     width: 150px;
     height: 150px;
+    margin: 0 auto;
     object-fit: contain;
 }
 
